@@ -6,9 +6,13 @@ btnStop.addEventListener('click', onStopSwitchColor);
 
 let intervalId = null;
 
+function switchDisabled(boule) {
+  btnStart.disabled = boule;
+  btnStop.disabled = !boule;
+}
+
 function onSwitchColor() {
-  btnStart.disabled = true;
-  btnStop.disabled = false;
+  switchDisabled(true);
 
   intervalId = setInterval(() => {
     document.body.style.backgroundColor = getRandomHexColor();
@@ -16,8 +20,7 @@ function onSwitchColor() {
 }
 
 function onStopSwitchColor() {
-  btnStart.disabled = false;
-  btnStop.disabled = true;
+  switchDisabled(false);
 
   clearInterval(intervalId);
 }

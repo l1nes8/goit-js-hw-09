@@ -10,21 +10,22 @@ const hours = timer.querySelector('[data-hours]');
 const minutes = timer.querySelector('[data-minutes]');
 const seconds = timer.querySelector('[data-seconds]');
 
+function makeDisableButton() {
+  startBtn.setAttribute('disabled', 'disabled');
+}
+
 flatpickr(inputDate, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
-    let selectedDate = selectedDates[0];
-    const currentDate = new Date();
-
-    if (selectedDate <= currentDate) {
+  onClose({ selectedDates }) {
+    if (selectedDates[0].getTime() < Date.now()) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      startBtn.disabled = true;
-    } else {
-      startBtn.disabled = false;
+      makeDisableButton();
+      return;
     }
+    startBtn.disabled = false;
   },
 });
 
@@ -50,7 +51,7 @@ startBtn.addEventListener('click', startTimer);
 
 function startTimer() {
   const selectedDate = flatpickr.parseDate(inputDate.value);
-  const currentDate = new Date();
+  const currentDate = Date.now();
 
   if (selectedDate <= currentDate) {
     Notiflix.Notify.failure('Please choose a date in the future');
