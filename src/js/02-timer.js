@@ -51,18 +51,12 @@ function addLeadingZero(value) {
 startBtn.addEventListener('click', startTimer);
 
 function startTimer() {
-  const selectedDate = flatpickr.parseDate(inputDate.value);
-  const currentDate = Date.now();
-
-  if (selectedDate <= currentDate) {
-    Notiflix.Notify.failure('Please choose a date in the future');
-    return;
-  }
+  const selectedDate = inputDate._flatpickr.selectedDates[0].getTime();
 
   startBtn.disabled = true;
 
   const countdownInterval = setInterval(() => {
-    const msRemaining = selectedDate - new Date();
+    const msRemaining = selectedDate - Date.now();
 
     if (msRemaining <= 0) {
       clearInterval(countdownInterval);
