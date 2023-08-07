@@ -71,7 +71,7 @@ function startTimer() {
     } else {
       updateTimer(msRemaining);
     }
-  });
+  }, 1000);
 }
 
 function updateTimer(ms) {
