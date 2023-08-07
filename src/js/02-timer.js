@@ -16,13 +16,23 @@ flatpickr(inputDate, {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (selectedDates[0].getTime() < Date.now()) {
+    const currentDate = Date.now();
+
+    if (selectedDates[0].getTime() < currentDate) {
       Notiflix.Notify.failure('Please choose a date in the future');
       startBtn.disabled = true;
       return;
     }
     startBtn.disabled = false;
   },
+  // onClose(selectedDates) {
+  //   if (selectedDates[0].getTime() < Date.now()) {
+  //     Notiflix.Notify.failure('Please choose a date in the future');
+  //
+  //     return;
+  //   }
+  //
+  // },
 });
 
 function convertMs(ms) {
