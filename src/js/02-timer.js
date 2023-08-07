@@ -10,19 +10,15 @@ const hours = timer.querySelector('[data-hours]');
 const minutes = timer.querySelector('[data-minutes]');
 const seconds = timer.querySelector('[data-seconds]');
 
-function makeDisableButton() {
-  startBtn.setAttribute('disabled', 'disabled');
-}
-
 flatpickr(inputDate, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose({ selectedDates }) {
+  onClose(selectedDates) {
     if (selectedDates[0].getTime() < Date.now()) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      makeDisableButton();
+      startBtn.disabled = true;
       return;
     }
     startBtn.disabled = false;
